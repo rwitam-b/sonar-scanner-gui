@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>SonarQube GUI</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import Google Roboto Font-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="../../node_modules/materialize-css/dist/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="../../node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .header{
+            margin-bottom:0px;
+            margin-top:10px;
+        }
+  </style>
+</head>
+
+<body>
+    <div class="row center-align header">
+        <img class="responsive-img" src="../images/logo.svg" style="max-height: 80px;">
+    </div>
+    <nav>
+        <div class="nav-wrapper light-blue">
+            <ul class="left">
+                <li class="active"><a href="#">Properties</a></li>
+                <li><a href="#">Run Scan</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h4 id="title" class="left-align">Properties Setup</h4>
+        <br>
+        <form id="properties">
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">language</i>
+                    <input required id="sonar-host-url" type="text" class="validate">
+                    <label for="sonar-host-url">sonar.host.url</label>
+                    <span class="helper-text" data-error="This is required"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input required id="sonar-login" type="text" class="validate">
+                    <label for="sonar-login">sonar.login</label>
+                    <span class="helper-text" data-error="This is required"></span>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">vpn_key</i>
+                    <input required id="sonar-password" type="password" class="validate">
+                    <label for="sonar-password">sonar.password</label>
+                    <span class="helper-text" data-error="This is required"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">link</i>
+                    <input required id="sonar-projectKey" type="text" class="validate">
+                    <label for="sonar-projectKey">sonar.projectKey</label>
+                    <span class="helper-text" data-error="This is required"></span>
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">timeline</i>
+                    <input id="sonar-branch-name" type="text" class="validate">
+                    <label for="sonar-branch-name">sonar.branch.name</label>
+                </div>
+            </div>
+            <div class="row valign-wrapper">
+                <div class="input-field inline col s11">
+                    <i class="material-icons prefix">folder</i>
+                    <input required id="sonar-sources" type="text" class="validate">
+                    <label for="sonar-sources">sonar.sources</label>
+                    <span class="helper-text" data-error="This is required"></span>
+                </div>
+                <div class="col s1">
+                    <a id="sonar-sources-selector" style="color:black;" class="waves-effect waves-light"><i class="material-icons left">search</i></a>
+                </div>
+            </div>
+            <div class="row center-align">
+                <div class="col s4 offset-s4">
+                    <a id="saveProperties" class="waves-effect waves-light btn light-blue darken-1">Save</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        window.$ = window.jQuery = require('jquery');
+        require("../js/properties-renderer.js")
+    </script>
+</body>
+
+</html>

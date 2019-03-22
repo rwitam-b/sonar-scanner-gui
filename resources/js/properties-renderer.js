@@ -44,13 +44,16 @@ ipc.on("saved-sonar-sources", function (event, response) {
 });
 
 $(document).ready(function () {
+    if (localStorage["title"]) {
+        $("#title").text(localStorage["title"]);
+    }
     if (localStorage["sonar-properties"]) {
         var properties = JSON.parse(localStorage["sonar-properties"]);
         $("input").each((index, elem) => {
             var key = elem.id.replace(/[-]/g, ".");
-            elem.classList.remove("invalid");
             elem.focus();
             elem.value = properties[key];
+            elem.classList.remove("invalid");
 
             // Required check
             if (elem.required && elem.value == "") {

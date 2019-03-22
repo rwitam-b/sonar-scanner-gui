@@ -21,13 +21,17 @@ app.on('ready', function () {
     height: 800,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    show: false
   });
   mainWindow.loadFile(path.join(__dirname, "..", "views", "index.html"));
   mainWindow.on('closed', function () {
-    mainWindow = null
+    mainWindow = null;
   });
-  // mainWindow.webContents.openDevTools();  
+  mainWindow.once("ready-to-show", () => {
+    mainWindow.show();
+  });
+  // mainWindow.webContents.openDevTools();
 });
 
 ipc.on("loadProperty", function (event, args) {

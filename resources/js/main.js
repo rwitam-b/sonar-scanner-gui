@@ -102,6 +102,26 @@ ipc.on("save-sonar-sources", function (event, propertiesData) {
   }
 });
 
+ipc.on("fetch-sonar-property", function (event) {
+  var dataToSend = {};
+  if (fs.existsSync(path.join(__dirname, "..", "..", "node_modules", "sonar-scanner", "conf", "sonar-scanner.properties"))) {
+    fs.readFile(path.join(__dirname, "..", "..", "node_modules", "sonar-scanner", "conf", "sonar-scanner.properties"), "utf8", (err, data) => {
+      if (err) {
+        dataToSend.status = false;
+        dataToSend.data = err;
+      } else {
+        dataToSend.status = true;
+        dataToSend.data = data;
+        event.sender.send("fetched-sonar-property", dataToSend);
+      }
+    });
+  } else {
+    dataToSend.status = false;
+    dataToSend.data = "No properties are defined in the system!";
+    event.sender.send("fetched-sonar-property", dataToSend);
+  }
+});
+
 ipc.on("testing", function (event, args) {
   // const proc = spawn("java", ["Test"]);
 

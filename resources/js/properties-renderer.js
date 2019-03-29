@@ -43,11 +43,22 @@ ipc.on("saved-sonar-sources", function (event, response) {
     }
 });
 
+ipc.on("fetched-sonar-property", (event, response) => {
+    if (!response.status) {
+        $("#modal1-agree").addClass("disabled");
+    } else {
+        $("#modal1-agree").removeClass("disabled");
+    }
+    $("#confirm-properties").text(response.data);
+});
+
 $(document).ready(function () {
     if (localStorage["title"]) {
+        // Setting the page title
         $("#title").text(localStorage["title"]);
     }
     if (localStorage["sonar-properties"]) {
+        // Filling the values in the property form
         var properties = JSON.parse(localStorage["sonar-properties"]);
         $("input").each((index, elem) => {
             var key = elem.id.replace(/[-]/g, ".");
@@ -60,6 +71,16 @@ $(document).ready(function () {
                 elem.classList.add("invalid");
             }
         });
-        localStorage.removeItem("sonar-properties");
     }
+    // Initializing "Run Scan" modal
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, {
+        opacity: 0.5,
+        inDuration: 700,
+        outDuration: 700,
+        dismissible: false,
+        onOpenStart: function () {
+            ipc.send("fetch-sonar-property");
+        }
+    });
 });

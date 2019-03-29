@@ -33,15 +33,28 @@
     <nav>
         <div class="nav-wrapper light-blue">
             <ul class="left">
-                <li class="active">
-                    <a href="index.html">Property Setup
+                <li>
+                    <a class="waves-effect waves-light" href="index.html">Property Setup
                         <i class="material-icons left">arrow_back_ios</i>
                     </a>
                 </li>
-                <li><a href="#">Run Scan</a></li>
+            </ul>
+            <ul class="right">
+                <li><a class="waves-effect waves-light modal-trigger" href="#modal1">Run Scan</a></li>
             </ul>
         </div>
     </nav>
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Verify Scan Properties</h4>
+            <p>Are you sure you want to run the SonarQube scan with these settings?</p>
+            <pre id="confirm-properties"></pre>
+        </div>
+        <div class="modal-footer">
+            <a id="modal1-agree" href="#!" class="modal-close waves-effect waves-green btn-flat">Continue</a>
+            <a id="modal1-cancel" href="#!" class="modal-close waves-effect waves-red btn-flat">Cancel</a>
+        </div>
+    </div>
     <div class="container">
         <h4 id="title" class="left-align">Properties Setup</h4>
         <br>

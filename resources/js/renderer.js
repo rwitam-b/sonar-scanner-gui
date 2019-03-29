@@ -17,3 +17,8 @@ ipc.on("loadedExistingProperty", function (event, properties) {
     window.localStorage["sonar-properties"] = JSON.stringify(properties);
     window.localStorage["title"] = "Modify SonarQube Properties";
 });
+
+$(document).ready(() => {
+    window.localStorage.removeItem("sonar-properties");
+    window.localStorage.removeItem("title");
+});

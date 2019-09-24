@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>SonarQube GUI</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import Google Roboto Font-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="../../node_modules/materialize-css/dist/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="../../node_modules/materialize-css/dist/js/materialize.min.js"></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .header {
+            margin-bottom: 0px;
+            margin-top: 10px;
+        }
+
+        pre {
+            height: 60vh;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row center-align header">
+        <img class="responsive-img" src="../images/logo.svg" style="max-height: 80px;">
+    </div>
+    <nav>
+        <div class="nav-wrapper light-blue">
+            <ul class="left">
+                <li>
+                    <a class="waves-effect waves-light" href="index.html">Property Setup
+                        <i class="material-icons left">arrow_back_ios</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h4 id="title" class="left-align">Running Scan</h4>
+        <br>
+    </div>
+    <div class="row">
+        <pre id="console"></pre>
+    </div>
+    <script>
+        window.$ = window.jQuery = require('jquery');
+        require("../js/scan-renderer.js")
+    </script>
+</body>
+
+</html>

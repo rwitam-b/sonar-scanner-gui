@@ -8,7 +8,7 @@ $("#sonar-sources-selector").click(function () {
 
 ipc.on("selected-sonar-sources", function (event, dirPath) {
     $("#sonar-sources").focus();
-    $("#sonar-sources").val(dirPath);
+    $("#sonar-sources").val(dirPath.replace(/\\/g, "/"));
     $("#sonar-sources").removeClass("invalid");
 });
 
@@ -52,26 +52,35 @@ ipc.on("fetched-sonar-property", (event, response) => {
     $("#confirm-properties").text(response.data);
 });
 
+$("#modal1-agree").click(() => {
+    ipc.send("openScanPage");
+});
+
 $(document).ready(function () {
     if (localStorage["title"]) {
         // Setting the page title
         $("#title").text(localStorage["title"]);
     }
-    if (localStorage["sonar-properties"]) {
-        // Filling the values in the property form
-        var properties = JSON.parse(localStorage["sonar-properties"]);
-        $("input").each((index, elem) => {
-            var key = elem.id.replace(/[-]/g, ".");
-            elem.focus();
-            elem.value = properties[key];
-            elem.classList.remove("invalid");
-
-            // Required check
-            if (elem.required && elem.value == "") {
-                elem.classList.add("invalid");
+    try {
+        if (localStorage["sonar-properties"] && Object.keys(JSON.parse(localStorage["sonar-properties"])).length > 0) {
+            // Filling the values in the property form
+            var properties = JSON.parse(localStorage["sonar-properties"]);
+            debugger;
+            for (property in properties) {
+                let elemId = property.replace(/[.]/g, "-");
+                let elem = $("#" + elemId);
+                elem.focus();
+                elem.val(properties[property]);
+                elem.removeClass("invalid");
             }
-        });
-    }
+            $("input").each((index, elem) => {
+                // Required check
+                if (elem.required && elem.value == "") {
+                    elem.classList.add("invalid");
+                }
+            });            
+        }
+    } catch (e) {}
     // Initializing "Run Scan" modal
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems, {

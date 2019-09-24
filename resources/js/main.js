@@ -9,7 +9,8 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const {
-  spawn
+  spawn,
+  exec
 } = require('child_process');
 
 let mainWindow;
@@ -59,9 +60,16 @@ ipc.on("loadProperty", function (event, args) {
 
 ipc.on("loadExistingProperty", function (event, args) {
   // Property file loading from disk
-  var properties = PropertiesReader(path.join(__dirname, "..", "..", "node_modules", "sonar-scanner", "conf", "sonar-scanner.properties"));
+  let properties = null;
+  try {
+    properties = PropertiesReader(path.join(__dirname, "..", "..", "node_modules", "sonar-scanner", "conf", "sonar-scanner.properties"));
+    if (properties && Object.keys(properties.getAllProperties()).length > 0) {
+      event.sender.send("loadedExistingProperty", properties.getAllProperties());
+    }
+  } catch (e) {
+    console.log("Existing property file does not exist!");
+  }
   mainWindow.loadFile(path.join(__dirname, "..", "views", "properties.html"));
-  event.sender.send("loadedExistingProperty", properties.getAllProperties());
 });
 
 ipc.on("sonar-sources", function (event, args) {
@@ -81,6 +89,8 @@ ipc.on("sonar-sources", function (event, args) {
 ipc.on("save-sonar-sources", function (event, propertiesData) {
   // Check whether sonar.sources exist
   if (fs.existsSync(propertiesData["sonar.sources"])) {
+    // Setting the sonar base project directory to the sources directory
+    propertiesData["sonar.projectBaseDir"] = propertiesData["sonar.sources"];
     // Save property file to disk
     var writer = fs.createWriteStream(path.join(__dirname, "..", "..", "node_modules", "sonar-scanner", "conf", "sonar-scanner.properties"));
     writer.write("# This property file has been generated from SonarQube GUI" + os.EOL)
@@ -122,10 +132,18 @@ ipc.on("fetch-sonar-property", function (event) {
   }
 });
 
-ipc.on("testing", function (event, args) {
-  // const proc = spawn("java", ["Test"]);
+ipc.on("openScanPage", function (event, args) {
+  mainWindow.loadFile(path.join(__dirname, "..", "views", "scan.html"));
+});
 
-  // proc.stdout.on("data", (data) => {
-  //   event.sender.send("tested", `stdout: ${data}`);
-  // });
+ipc.on("runScan", function (event, args) {
+  const proc = spawn(path.join(__dirname, "..", "..", "node_modules", "sonar-scanner", "bin", "sonar-scanner.bat"));
+
+  proc.stdout.on("data", (data) => {
+    event.sender.send("runningScan", data.toString());
+  });
+
+  proc.stderr.on("data", (data) => {
+    event.sender.send("runningScan", data.toString());
+  });
 });

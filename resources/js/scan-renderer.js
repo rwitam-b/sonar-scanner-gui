@@ -2,8 +2,8 @@ const {
     ipcRenderer: ipc
 } = require('electron');
 
-
-ipc.on("runningScan", (event, response) => {
+// Event from server which sends the running scan's terminal output
+ipc.on("scanOutput", (event, response) => {
     $("#console").append(response);
     $("#console").scrollTop(document.getElementById("console").scrollHeight);
 });
@@ -11,7 +11,7 @@ ipc.on("runningScan", (event, response) => {
 $(document).ready(() => {
     var scanStatus = window.localStorage.scanStatus;
     if (scanStatus) {
-        ipc.send("runScan");
+        ipc.send("startScan");
     } else {
         window.location = "index.html";
     }

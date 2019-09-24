@@ -17,3 +17,9 @@ A working SonarQube server setup
 ```
 npm install
 ```
+
+### Running
+
+```
+npm start
+```

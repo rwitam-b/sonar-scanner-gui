@@ -17,11 +17,10 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^4.0.7",
-    "electron-packager": "^13.1.1"
+    "electron": "^4.0.7"
   },
   "dependencies": {
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "path": "^0.12.7",
     "properties-reader": "0.0.16",
     "sonar-scanner": "^3.1.0"

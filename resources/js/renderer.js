@@ -30,7 +30,8 @@ ipc.on("fetchedScanProperties", (event, response) => {
     } else {
         $("#modal1-agree").removeClass("disabled");
     }
-    $("#confirm-properties").text(response.data);
+    $("#modalTitle").text(response.titleMessage);
+    $("#modalProperties").text(response.data);
 });
 
 // Agree to run scan, after reviewing sonar properties

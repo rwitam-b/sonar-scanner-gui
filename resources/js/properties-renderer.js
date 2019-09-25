@@ -24,7 +24,7 @@ $("#saveProperties").click(function (event) {
         }
         // propertiesData[key] = value;
         propertiesData.set(key, value);
-    });    
+    });
     if (requiredFilled) {
         ipc.send("saveSonarProperties", Array.from(propertiesData.entries()));
     }
@@ -51,7 +51,8 @@ ipc.on("fetchedScanProperties", (event, response) => {
     } else {
         $("#modal1-agree").removeClass("disabled");
     }
-    $("#confirm-properties").text(response.data);
+    $("#modalTitle").text(response.titleMessage);
+    $("#modalProperties").text(response.data);
 });
 
 // Agree to run scan, after reviewing sonar properties

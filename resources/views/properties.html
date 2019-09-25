@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>SonarQube GUI</title>
-    <!--Import Google Icon Font-->
-    <link href="../css/material_icons.css" rel="stylesheet">
+    <title>SonarQube Scanner GUI</title>
+    <!--Import Material Icons-->
+    <link href="../../node_modules/material-icons/iconfont/material-icons.css" rel="stylesheet">
     <!--Import Google Roboto Font-->
-    <link href="../css/roboto.css" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="../css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="../js/materialize.min.js"></script>
+    <link href="../../node_modules/roboto-fontface/css/roboto/roboto-fontface.css" rel="stylesheet">
+    <!-- Compiled and minified Materialize CSS -->
+    <link rel="stylesheet" href="../../node_modules/materialize-css/dist/css/materialize.min.css">
+    <!-- Compiled and minified Materialize JavaScript -->
+    <script src="../../node_modules/materialize-css/dist/js/materialize.min.js"></script>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
@@ -47,8 +47,8 @@
     <div id="modal1" class="modal">
         <div class="modal-content">
             <h4>Verify Scan Properties</h4>
-            <p>Are you sure you want to run the SonarQube scan with these settings?</p>
-            <pre id="confirm-properties"></pre>
+            <p id="modalTitle">Are you sure you want to run the SonarQube scan with these settings?</p>
+            <pre id="modalProperties"></pre>
         </div>
         <div class="modal-footer">
             <a id="modal1-agree" href="#!" class="modal-close waves-effect waves-green btn-flat">Continue</a>

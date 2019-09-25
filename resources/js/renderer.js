@@ -24,7 +24,6 @@ ipc.on("loadedExistingProperty", function (event, properties) {
 
 // Event from server after initializing sonar properties(before scan execution)
 ipc.on("fetchedScanProperties", (event, response) => {
-    console.log(response);
     if (!response.status) {
         $("#modal1-agree").addClass("disabled");
     } else {

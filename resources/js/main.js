@@ -62,7 +62,6 @@ ipc.on('loadExternalProperty', function (event, args) {
     if (filePaths) {
       let filePath = filePaths[0];
       let properties = PropertiesReader(filePath);
-      console.log(properties.getAllProperties());
       event.sender.send('loadedExternalProperty', properties.getAllProperties());
       mainWindow.loadFile(path.join(__dirname, '..', 'views', 'properties.html'));
     }

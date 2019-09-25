@@ -4,7 +4,10 @@
   "description": "A minimalist material design GUI wrapped over the SonarQube CLI Scanner",
   "main": "resources/js/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=resources/images/icon.png --prune=true --out=release-builds",
+    "package-win": "electron-packager . sonar-scanner-gui --overwrite --asar=true --platform=win32 --arch=ia32 --icon=resources/images/icon.png --prune=true --out=release-builds --version-string.ProductName=\"SonarQube Scanner GUI\"",
+    "package-linux": "electron-packager . sonar-scanner-gui --overwrite --asar=true --platform=linux --arch=x64 --icon=resources/images/icon.png --prune=true --out=release-builds"
   },
   "repository": "https://github.com/rwitam-b/sonar-scanner-gui",
   "keywords": [
@@ -18,7 +21,8 @@
   "author": "Rwitam Bandyopadhyay",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^4.0.7"
+    "electron": "^6.0.10",
+    "electron-packager": "^14.0.6"
   },
   "dependencies": {
     "jquery": "^3.4.1",
@@ -26,7 +30,7 @@
     "materialize-css": "^1.0.0",
     "roboto-fontface": "^0.10.0",
     "path": "^0.12.7",
-    "properties-reader": "0.0.16",
+    "properties-reader": "0.3.1",
     "sonar-scanner": "^3.1.0"
   }
 }

@@ -19,6 +19,11 @@ npm install
 ```
 npm start
 ```
+## Packaging to executable (Windows)
+
+```
+npm run package-win
+```
 
 ## Property Configuration
 

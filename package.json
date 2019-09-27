@@ -5,7 +5,8 @@
   "main": "resources/js/main.js",
   "scripts": {
     "start": "electron .",
-    "package-win": "electron-packager . sonar-scanner-gui --overwrite --asar=true --platform=win32 --arch=ia32 --icon=resources/images/icon.ico --prune=true --out=release-builds --version-string.ProductName=\"SonarQube Scanner GUI\""
+    "build-win32": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=resources/images/icon.ico --prune=true --out=dist --version-string.ProductName=\"SonarQube Scanner GUI\"",
+    "build-win64": "electron-packager . --overwrite --platform=win32 --arch=x64 --icon=resources/images/icon.ico --prune=true --out=dist --version-string.ProductName=\"SonarQube Scanner GUI\""
   },
   "repository": "https://github.com/rwitam-b/sonar-scanner-gui",
   "keywords": [

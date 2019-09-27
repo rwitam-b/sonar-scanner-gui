@@ -62,3 +62,6 @@ typings/
 
 #sonar scanner report directory
 .scannerwork/
+
+#build directory
+.dist/

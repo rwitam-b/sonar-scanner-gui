@@ -39,9 +39,15 @@ ipc.on("selectedSonarSources", function (event, dirPath) {
 
 // Event back from server after sonar properties have been saved
 ipc.on("savedSonarProperties", function (event, response) {
-    M.toast({
-        html: response.message
-    });
+    if (response.status) {
+        M.toast({
+            html: response.message
+        });
+    } else {
+        M.toast({
+            html: '<div class = "red-text">' + response.message + '</div>'
+        });
+    }
 });
 
 // Event from server after initializing sonar properties(before scan execution)

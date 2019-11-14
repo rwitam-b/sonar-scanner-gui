@@ -41,6 +41,7 @@ app.on('ready', function () {
     Menu.setApplicationMenu(null);
     mainWindow.show();
     mainWindow.maximize();
+    // mainWindow.webContents.openDevTools()   
   });
 });
 
@@ -141,12 +142,36 @@ ipc.on('saveSonarProperties', function (event, propertiesData) {
   if (fs.existsSync(propertiesData.get('sonar.sources'))) {
     propertiesData.set('sonar.projectBaseDir', propertiesData.get('sonar.sources'));
 
-    try {
-      // Copying system properties so that user properties can be appended to it      
-      fs.copyFileSync(path.join(__dirname, '..', 'system.properties'), propertyPath);
-    } catch (e) {
-      // Deleting existing property file so that user properties will be a fresh write
-      fs.unlink(propertyPath, error => console.log(error));
+    if (fs.existsSync(path.join(__dirname, '..', 'system.properties'))) {
+      try {
+        // Copying system properties so that user properties can be appended to it      
+        fs.copyFileSync(path.join(__dirname, '..', 'system.properties'), propertyPath);
+      } catch (copyException) {
+        console.log("Error on copy -> " + copyException);
+        try {
+          // Deleting existing property file so that user properties will be a fresh write
+          fs.unlinkSync(propertyPath);
+        } catch (unlinkException) {
+          console.log("Error on unlink -> " + unlinkException);
+          event.sender.send('savedSonarProperties', {
+            'status': false,
+            'message': 'sonar-scanner.properties could not be saved! Please launch application with Admin rights!'
+          });
+          return;
+        }
+      }
+    } else {
+      try {
+        // Deleting existing property file so that user properties will be a fresh write
+        fs.unlinkSync(propertyPath);
+      } catch (unlinkException) {
+        console.log("Error on unlink -> " + unlinkException);
+        event.sender.send('savedSonarProperties', {
+          'status': false,
+          'message': 'sonar-scanner.properties could not be saved! Please launch application with Admin rights!'
+        });
+        return;
+      }
     }
 
     // Appending user properties to property file

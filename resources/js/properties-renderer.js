@@ -9,9 +9,9 @@ $("#sonar-sources-selector").click(function () {
 
 // Button click to save sonar properties in app
 $("#saveProperties").click(function (event) {
-    // let propertiesData = {};
     let propertiesData = new Map();
     let requiredFilled = true;
+
     $("input").each((index, elem) => {
         let key = elem.id.replace(/[-]/g, ".");
         let value = elem.value;
@@ -22,9 +22,18 @@ $("#saveProperties").click(function (event) {
             requiredFilled = false;
             elem.classList.add("invalid");
         }
-        // propertiesData[key] = value;
         propertiesData.set(key, value);
     });
+
+    // Copying Project Key into Project Name in case it's not specified
+    if (propertiesData.get('sonar.projectName').trim() == "") {
+        propertiesData.set('sonar.projectName', propertiesData.get('sonar.projectKey'));
+        let projectName = $("#sonar-projectName");
+        projectName.focus();
+        projectName.val(propertiesData.get("sonar.projectKey"));
+        projectName.blur();
+    }
+
     if (requiredFilled) {
         ipc.send("saveSonarProperties", Array.from(propertiesData.entries()));
     }
@@ -91,9 +100,10 @@ $(document).ready(function () {
             });
         }
     } catch (e) {}
+
     // Initializing "Run Scan" modal
-    let elems = document.querySelectorAll('.modal');
-    let instances = M.Modal.init(elems, {
+    let modalElems = document.querySelectorAll('.modal');
+    let modalInstances = M.Modal.init(modalElems, {
         opacity: 0.5,
         inDuration: 700,
         outDuration: 700,
@@ -101,5 +111,12 @@ $(document).ready(function () {
         onOpenStart: function () {
             ipc.send("fetchScanProperties");
         }
+    });
+
+    // Initializing tooltips
+    var tooltipElems = document.querySelectorAll('.tooltipped');
+    var tooltipInstances = M.Tooltip.init(tooltipElems, {
+        position: "top",
+        enterDelay: 300
     });
 });

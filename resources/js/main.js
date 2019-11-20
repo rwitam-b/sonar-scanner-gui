@@ -18,7 +18,7 @@ let mainWindow;
 const propertyDescriptions = {
   'sonar.host.url': '## Default SonarQube server',
   'sonar.login': '## Login Details',
-  'sonar.projectKey': '## Project Details',
+  'sonar.projectName': '## Project Details',
   'sonar.sources': '## Scan Source File Path Details'
 }
 
@@ -41,7 +41,7 @@ app.on('ready', function () {
     Menu.setApplicationMenu(null);
     mainWindow.show();
     mainWindow.maximize();
-    // mainWindow.webContents.openDevTools()   
+    // mainWindow.webContents.openDevTools()
   });
 });
 
@@ -139,6 +139,7 @@ ipc.on('selectSonarSources', function (event, args) {
 ipc.on('saveSonarProperties', function (event, propertiesData) {
   propertiesData = new Map(propertiesData);
   let propertyPath = path.join(__dirname, '..', '..', 'node_modules', 'sonar-scanner', 'conf', 'sonar-scanner.properties');
+
   if (fs.existsSync(propertiesData.get('sonar.sources'))) {
     propertiesData.set('sonar.projectBaseDir', propertiesData.get('sonar.sources'));
 

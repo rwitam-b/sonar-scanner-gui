@@ -62,48 +62,62 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">language</i>
-                    <input required id="sonar-host-url" type="text" class="validate">
+                    <input data-tooltip="The server URL" required id="sonar-host-url" type="text"
+                        class="validate tooltipped">
                     <label for="sonar-host-url">sonar.host.url</label>
                     <span class="helper-text" data-error="This is required"></span>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6">
                     <i class="material-icons prefix">account_circle</i>
-                    <input required id="sonar-login" type="text" class="validate">
+                    <input
+                        data-tooltip="The login or authentication token of a SonarQube user with Execute Analysis permission on the project"
+                        required id="sonar-login" type="text" class="validate tooltipped">
                     <label for="sonar-login">sonar.login</label>
                     <span class="helper-text" data-error="This is required"></span>
                 </div>
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6">
                     <i class="material-icons prefix">vpn_key</i>
-                    <input required id="sonar-password" type="password" class="validate">
+                    <input
+                        data-tooltip="The password that goes with the sonar.login username"
+                        required id="sonar-password" type="password" class="validate tooltipped">
                     <label for="sonar-password">sonar.password</label>
                     <span class="helper-text" data-error="This is required"></span>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s12 m6 l4">
+                    <i class="material-icons prefix">timeline</i>
+                    <input data-tooltip="Name of the project that will be displayed on the web interface"
+                        id="sonar-projectName" type="text" class="validate tooltipped">
+                    <label for="sonar-projectName">sonar.projectName</label>
+                </div>
+                <div class="input-field col s12 m6 l4">
                     <i class="material-icons prefix">link</i>
-                    <input required id="sonar-projectKey" type="text" class="validate">
+                    <input
+                        data-tooltip="The project's unique key. Allowed characters are: letters, numbers, -, _, . and :, with at least one non-digit"
+                        required id="sonar-projectKey" type="text" class="validate tooltipped">
                     <label for="sonar-projectKey">sonar.projectKey</label>
                     <span class="helper-text" data-error="This is required"></span>
                 </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">timeline</i>
-                    <input id="sonar-branch-name" type="text" class="validate">
+                <div class="input-field col s12 m12 l4">
+                    <i class="material-icons prefix">account_tree</i>
+                    <input data-tooltip="Name of the branch (visible in the UI)" id="sonar-branch-name" type="text" class="validate tooltipped">
                     <label for="sonar-branch-name">sonar.branch.name</label>
                 </div>
             </div>
             <div class="row valign-wrapper">
                 <div class="input-field inline col s11">
                     <i class="material-icons prefix">folder</i>
-                    <input required id="sonar-sources" type="text" class="validate">
+                    <input data-tooltip="Directory containing the source files for scanning" required id="sonar-sources"
+                        type="text" class="validate tooltipped">
                     <label for="sonar-sources">sonar.sources</label>
                     <span class="helper-text" data-error="This is required"></span>
                 </div>
                 <div class="col s1">
                     <a id="sonar-sources-selector" style="color:black;" class="waves-effect waves-light"><i
-                            class="material-icons left">search</i></a>
+                            class="material-icons right">search</i></a>
                 </div>
             </div>
             <div class="row center-align">
